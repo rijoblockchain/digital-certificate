@@ -1,0 +1,50 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<td-layout>
+	<td-navigation-drawer flex [sidenavTitle]="name" name="Rijo" email="rijoblockchain@gmail.com">
+
+	</td-navigation-drawer>
+	<td-layout-nav color="primary" navigationRoute="/">
+		<button mat-icon-button td-menu-button tdLayoutToggle>
+			<mat-icon>menu</mat-icon>
+		</button>
+		<div td-toolbar-content layout="row" layout-align="start center" flex>
+			<span hide-gt-xs class="mat-subhead">BlockCerts</span>
+			<span hide-xs class="mat-subhead">BlockCerts</span>
+			<span flex></span>
+			<div *ngIf="!authService.currentUser" layout="row" layout-align="center end">
+				<a mat-raised-button  href="/auth/google"><mat-icon svgIcon="google"></mat-icon>  Sign in with google</a>
+			</div>
+			<div *ngIf="authService.currentUser" layout="row" layout-align="center end">
+				<span class="pad-right-md">Hi, {{ authService.currentUser.firstName }} </span>
+				<a mat-raised-button color="accent" href="/auth/logout">Logout</a>
+			</div>
+		</div>
+		<mat-toolbar *ngIf="authService.currentUser" class="pad-none push-bottom-md">
+			<nav mat-tab-nav-bar class="pull-bottom-xl pull-top-md text-upper" flex>
+				<a *ngFor="let route of routes" mat-tab-link [routerLink]="route.name">
+					<span>{{route.displayName}}</span>
+				</a>
+				
+			</nav>
+		</mat-toolbar>
+		<!-- router outlet goes here -->
+		<router-outlet></router-outlet>
+		<!-- end content -->
+		<td-layout-footer>
+
+		</td-layout-footer>
+	</td-layout-nav>
+</td-layout>
